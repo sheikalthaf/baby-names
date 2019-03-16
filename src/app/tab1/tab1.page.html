@@ -15,8 +15,11 @@
     </ion-list-header>
     <ion-virtual-scroll [items]="items" [trackBy]="trackByIdentity">
       <ion-item *virtualItem="let item">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>{{ item.value }}</ion-label>
+        <ion-avatar>{{ item.gender }}</ion-avatar>
+        <ion-label>
+          {{ item.name }} <br />
+          {{ item.desc }}
+        </ion-label>
       </ion-item>
     </ion-virtual-scroll>
   </ion-list>

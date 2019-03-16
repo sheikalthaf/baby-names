@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AppService } from '../app.service';
+import { BNames } from '../models/names';
 
 @Component({
   selector: 'app-tab1',
@@ -7,24 +8,25 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  itemsClone: { id: number; value: string }[];
-  items = Array(500)
-    .fill('Ionic Documentation')
-    .map((v, i) => ({ id: i + 1, value: v + ' ' + (i + 1) }));
+  itemsClone: BNames[];
+  items: BNames[] = [];
   users: any[] = [];
 
-  constructor(private http: HttpClient) {
-    this.itemsClone = [...this.items];
+  constructor(private appService: AppService) {
+    this.appService.getNames().subscribe(names => {
+      this.items = names;
+      this.itemsClone = [...this.items];
+    });
   }
 
-  trackByIdentity(index: number, item: { id: number; value: string }) {
-    return item.id;
+  trackByIdentity(index: number, item: BNames) {
+    return item.name;
   }
 
   test(ev: CustomEvent) {
     const value = ev.detail.value;
     this.items = this.itemsClone.filter(e =>
-      value ? e.value.toLowerCase().indexOf(value) !== -1 : true
+      value ? e.name.toLowerCase().indexOf(value) !== -1 : true
     );
   }
 }
