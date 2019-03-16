@@ -6,7 +6,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-searchbar animated placeholder="Filter Names" (ionChange)="test($event)"></ion-searchbar>
+<ion-searchbar
+  animated
+  placeholder="Filter Names"
+  debounceTime="300"
+  (ionChange)="test($event)"
+></ion-searchbar>
 
 <ion-content>
   <ion-list lines="none">
@@ -16,10 +21,12 @@
     <ion-virtual-scroll [items]="items" [trackBy]="trackByIdentity">
       <ion-item *virtualItem="let item">
         <ion-avatar>{{ item.gender }}</ion-avatar>
-        <ion-label>
-          {{ item.name }} <br />
-          {{ item.meaning }}
-        </ion-label>
+        <div>
+          <p>
+            <b>{{ item.name }}</b>
+          </p>
+          <p>{{ item.meaning }}</p>
+        </div>
       </ion-item>
     </ion-virtual-scroll>
   </ion-list>

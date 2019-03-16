@@ -26,7 +26,7 @@ export class Tab1Page {
   test(ev: CustomEvent) {
     const value = ev.detail.value;
     this.items = this.itemsClone.filter(e =>
-      value ? e.name.toLowerCase().indexOf(value) !== -1 : true
+      value ? e.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 : true
     );
   }
 }
