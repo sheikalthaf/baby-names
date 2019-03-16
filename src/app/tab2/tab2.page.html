@@ -6,4 +6,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Names</ion-label>
+    </ion-list-header>
+    <ion-virtual-scroll [items]="users" [trackBy]="trackByIdentity">
+      <ion-item *virtualItem="let user">
+        <ion-avatar>
+          <ion-img [src]="user.picture.medium"></ion-img>
+        </ion-avatar>
+        <div>
+          <p>
+            <b>{{ user.name.first + ' ' + user.name.last }}</b>
+          </p>
+          <p>{{ user.email }}</p>
+        </div>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ion-list>
+
+  <ion-infinite-scroll
+    (ionInfinite)="loadMore($event)"
+    loadingSpinner="bubbles"
+  >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
